@@ -2,6 +2,7 @@ version: '3'
 services:
   db:
     image: postgres:15-alpine
+    container_name: db
     volumes:
      - ./data/db:/var/lib/postgresql/data/
     environment:
@@ -11,45 +12,47 @@ services:
     ports:
       - "5433:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U dfr"]
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
       timeout: 5s
       retries: 5
 
   redis:
     image: redis:7.0.5-alpine
+    container_name: redis
     expose:
       - 6379
 
   app:
     build: .
+    container_name: app
     env_file:
       - .env
     command: >
-      bash -c "python manage.py migrate --noinput 
-      && python manage.py runserver 0.0.0.0:8000"
+      bash -c "python manage.py migrate --noinput
+      && python manage.py runserver 0.0.0.0:8080"
     ports:
-      - "8000:8000"
+      - "8080:8080"
     depends_on:
       - db
       - redis
 
   celery_worker:
-    image: app
-    volumes:
-      - ./app/:/app/
+    image: .
     container_name: celery_worker
-    env_file: /app/.env
+    env_file:
+      - .env
     depends_on:
-      - app
+      redis:
+        condition: service_healthy
     command: celery -A config worker -l INFO
 
   celery_beat:
-    image: app
-    volumes:
-      - ./app/:/app/
+    image: .
     container_name: celery_beat
-    env_file: /app/.env
+    env_file:
+      - .env
     depends_on:
-      - app
+      redis:
+        condition: service_healthy
     command: celery -A config beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
