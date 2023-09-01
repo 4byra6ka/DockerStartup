@@ -153,8 +153,8 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
 
-CELERY_BROKER_URL = 'redis://redis:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_BROKER_URL = os.getenv('CELERY')
+CELERY_RESULT_BACKEND = os.getenv('CELERY')
 CELERY_TIMEZONE = os.getenv('TIME_ZONE')
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
@@ -169,12 +169,12 @@ TG_API_KEY = os.getenv('TG_API_KEY')
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
-    'http://10.2.3.16:8000',
+    'http://10.77.232.191:8000',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
-    'http://10.2.3.16:8000',
+    'http://10.77.232.191:8000',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = False
