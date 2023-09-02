@@ -7,10 +7,6 @@ services:
      - ./data/db:/var/lib/postgresql/data/
     env_file:
       - .env
-#    environment:
-#      POSTGRES_USER: postgres
-#      POSTGRES_PASSWORD: postgres
-#      POSTGRES_DB: habits
     ports:
       - "5433:5432"
     healthcheck:
