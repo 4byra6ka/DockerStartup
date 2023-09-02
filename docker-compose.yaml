@@ -32,6 +32,7 @@ services:
       - .env
     command: >
       bash -c "python manage.py migrate --noinput
+      && python3 manage.py collectstatic --noinput
       && python manage.py csu
       && python manage.py runserver 0.0.0.0:8080"
     ports:
