@@ -1,8 +1,8 @@
 # <img src="https://www.svgrepo.com/show/303231/docker-logo.svg" width="89"/>
 
-## Курсовой проект Docker"
+## Проект "Docker"
 
-#### Проект модуля 8 реализовать запуск проекта [Django REST framework "Сервис Atomic Habits"](https://github.com/4byra6ka/CourseWorkModule7.git)
+#### Проект реализовать запуск проекта [Django REST framework "Сервис Atomic Habits"](https://github.com/4byra6ka/AtomicHabitsService.git)
 ***
 #### Реализованы задачи:
 * Для разных сервисов созданы отдельные контейнеры (django, postgresql, redis, celery).
@@ -29,8 +29,8 @@
 
 ***
 ### Запуск Docker проекта
-    git cline https://github.com/4byra6ka/CourseWorkModule8.git
-    cd CourseWorkModule8
+    git cline https://github.com/4byra6ka/DockerStartup.git
+    cd DockerStartup
     vi .env
     docker-compose build
     docker-compose up
